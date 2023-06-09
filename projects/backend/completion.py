@@ -15,7 +15,7 @@ class CompletionController:
     logging.debug('prompt: %s', prompt)
 
     if prompt is None:
-      return { "error": 'prompt is required'}
+      return {"error": "prompt is required"}
     
     response = openai.Completion.create(
       model="curie:ft-personal-2023-06-09-09-05-53",
