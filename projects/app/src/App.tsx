@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { ChatInput } from "./components/ChatInput/ChatInput.tsx"
 import { Header } from "./components/Header/Header.tsx"
 import { Message, Messages } from "./components/Messages/Messages.tsx"
+import { useHandlePrompt } from "./hooks/useHandlePrompt.tsx"
 import { darkTheme, lightTheme } from "./themes/theme.ts"
 
 const StyledContainer = styled(Box)(() => ({
@@ -16,6 +17,7 @@ export const App: React.FC = () => {
   const [chatInput, setChatInput] = useState("")
   const [messages, setMessages] = useState<Message[]>()
   const [isLoading, setIsLoading] = useState(false)
+  const { request: requestPrompt } = useHandlePrompt()
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
 
   var theme = lightTheme
@@ -29,8 +31,19 @@ export const App: React.FC = () => {
       text: prompt,
     }
     setMessages((messages) => [...(messages ?? []), message])
-    setIsLoading(true)
     setChatInput("")
+
+    setIsLoading(true)
+
+    const response = await requestPrompt(prompt)
+
+    const responseMessage: Message = {
+      role: "CelestAI",
+      text: response.message,
+    }
+    setMessages((messages) => [...(messages ?? []), responseMessage])
+
+    setIsLoading(false)
   }
 
   return (

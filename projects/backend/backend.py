@@ -1,16 +1,22 @@
 import dotenv
 import os
 from flask import Flask
+from flask import request
+from flask_cors import CORS, cross_origin
 import completion
 import logging
 
 dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 app = Flask(__name__)
+CORS(app)
 completion_controller = None
 
-@app.route('/chat/<string:prompt>')
-def chat(prompt):
+@app.route('/chat/', methods=['POST'])
+def chat():
+  content = request.json
+  prompt = content['prompt']
+  
   if completion is None:
     logging.error('completions controller is not initialized')
     return ''
@@ -31,4 +37,4 @@ if __name__ == '__main__':
   except:
     completion.abort('Unable to initialize CompletionController')
     
-  app.run()
+  app.run(host='0.0.0.0')

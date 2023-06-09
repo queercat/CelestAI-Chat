@@ -28,8 +28,9 @@ export const Messages: React.FC<MessagesProps> = ({
               message.role == "CelestAI" ? "flex-start" : "flex-end",
             padding: theme.spacing(2),
           })}
+          key={index}
         >
-          <ChatMessage key={index} text={message.text} role={message.role} />
+          <ChatMessage text={message.text} role={message.role} />
         </Box>
       ))}
     </>
