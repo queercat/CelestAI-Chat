@@ -13,11 +13,7 @@ interface MessagesProps {
   isLoading?: boolean
 }
 
-export const Messages: React.FC<MessagesProps> = ({
-  messages,
-  // eslint-disable-next-line no-unused-vars
-  isLoading,
-}) => {
+export const Messages: React.FC<MessagesProps> = ({ messages }) => {
   return (
     <>
       {messages?.map((message, index) => (

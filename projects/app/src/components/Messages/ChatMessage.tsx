@@ -19,7 +19,10 @@ export const ChatMessage: React.FC<Message> = ({ text, role, ...props }) => {
       </Card>
       <Typography
         variant="caption"
-        sx={(theme) => ({ paddingLeft: theme.spacing(2), textAlign: "right" })}
+        sx={(theme) => ({
+          paddingLeft: theme.spacing(2),
+          textAlign: role == "User" ? "right" : "left",
+        })}
       >
         {role}
       </Typography>
