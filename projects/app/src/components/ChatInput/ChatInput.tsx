@@ -11,7 +11,8 @@ import React from "react"
 type ChatInputProps = {
   text: string
   setText: (text: string) => void
-  handleSendClick: () => void
+  handleOnSubmit: () => void
+  isLoading?: boolean
 } & TextFieldProps
 
 const InputContainer = styled(Box)(({ theme }) => ({
@@ -33,7 +34,8 @@ const CenterContent = styled(Box)(({ theme }) => ({
 export const ChatInput: React.FC<ChatInputProps> = ({
   text,
   setText,
-  handleSendClick,
+  handleOnSubmit,
+  isLoading,
   ...props
 }) => {
   return (
@@ -41,12 +43,19 @@ export const ChatInput: React.FC<ChatInputProps> = ({
       <CenterContent>
         <TextField
           {...props}
+          disabled={isLoading}
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Dear Princess CelestAI..."
+          onKeyDown={(ev) => {
+            if (ev.key === "Enter") {
+              ev.preventDefault()
+              handleOnSubmit()
+            }
+          }}
           sx={{ width: "100%" }}
         />
-        <IconButton onClick={handleSendClick}>
+        <IconButton onClick={handleOnSubmit}>
           <HistoryEduOutlined sx={{ fontSize: "3rem" }} />
         </IconButton>
       </CenterContent>

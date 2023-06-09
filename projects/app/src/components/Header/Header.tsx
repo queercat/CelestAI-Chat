@@ -15,6 +15,9 @@ const StyledContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
   padding: theme.spacing(4),
   whiteSpace: "nowrap",
+  "@media (max-width: 800px)": {
+    flexDirection: "column",
+  },
 }))
 
 export const Header: React.FC<HeaderProps> = ({ ...props }) => {
