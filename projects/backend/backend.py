@@ -1,12 +1,9 @@
-import dotenv
 import os
 from flask import Flask
 from flask import request
 from flask_cors import CORS
 import completion
 import logging
-
-dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 app = Flask(__name__)
 CORS(app)
